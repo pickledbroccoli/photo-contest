@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
-const { getAllPictures }= require('./database.js');
+const { getAllPictures, getPictureById }= require('./database.js');
 
 app.use(bodyParser.json());
 app.use(
@@ -20,7 +20,7 @@ app.get('/', (req, res, next) => {
 */
 app.get('/pictures', getAllPictures);
 
-//app.get('/pictures/:id', db.callback);
+app.get('/pictures/:id', getPictureById);
 
 //app.post('/pictures/:id', db.callback);
 

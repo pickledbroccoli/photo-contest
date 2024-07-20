@@ -47,6 +47,7 @@ sequelize.sync().then( (data) => {
     console.log('Error syncing models', err);
 });
 
+/*
 // insert test pics
 Picture.sync({alter: true}).then( () => {
     return Picture.create({
@@ -55,6 +56,8 @@ Picture.sync({alter: true}).then( () => {
 }).catch( (err) => {
     console.log(err);
 });
+*/
+
 // helper query functions for the routers
 const getAllPictures = async (req, res) => {
     const pictureArray = await Picture.sync({alter: true}).then( () => {
@@ -65,7 +68,16 @@ const getAllPictures = async (req, res) => {
     res.status(200).send(pictureArray);
 };
 
+const getPictureById = async (req, res) => {
+    const thisId = req.params.id;
+    const myPicture = await Picture.sync({alter: true}).then( () => {
+        return Picture.findOne({ where: { id: thisId } });
+    }).catch( (err) => {
+        res.status(404).send(` Id ${thisId} not found`);
+    });
+    res.status(200).send(myPicture.toJSON());
+};
 
 
 
-module.exports = { getAllPictures, };
+module.exports = { getAllPictures, getPictureById, };

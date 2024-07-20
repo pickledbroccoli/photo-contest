@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
-
+const { getAllPictures }= require('./database.js');
 
 app.use(bodyParser.json());
 app.use(
@@ -18,7 +18,7 @@ app.get('/', (req, res, next) => {
 /* endpointok routingjai
 *get all, get single pic by id, post caption to single pic by id
 */
-// app.get('/pictures', sequelize.getPictures);
+app.get('/pictures', getAllPictures);
 
 //app.get('/pictures/:id', db.callback);
 

@@ -46,3 +46,26 @@ sequelize.sync().then( (data) => {
 }).catch((err) => {
     console.log('Error syncing models', err);
 });
+
+// insert test pics
+Picture.sync({alter: true}).then( () => {
+    return Picture.create({
+        src_path: 'testPath01'
+    });
+}).catch( (err) => {
+    console.log(err);
+});
+// helper query functions for the routers
+const getAllPictures = async (req, res) => {
+    const pictureArray = await Picture.sync({alter: true}).then( () => {
+        return Picture.findAll();
+    }).catch( (err) => {
+        res.status(404).send('no records found');
+    });
+    res.status(200).send(pictureArray);
+};
+
+
+
+
+module.exports = { getAllPictures, };

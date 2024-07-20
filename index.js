@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
-const { getAllPictures, getPictureById }= require('./database.js');
+const { getAllPictures, getPictureById, postCaption }= require('./database.js');
 
 app.use(bodyParser.json());
 app.use(
@@ -22,7 +22,7 @@ app.get('/pictures', getAllPictures);
 
 app.get('/pictures/:id', getPictureById);
 
-//app.post('/pictures/:id', db.callback);
+app.post('/pictures/:id', postCaption);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

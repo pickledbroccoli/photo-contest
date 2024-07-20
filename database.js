@@ -38,6 +38,9 @@ const Caption = sequelize.define('caption', {
     },
     picture_id: {
         type: Sequelize.DataTypes.INTEGER
+    },
+    body: {
+        type: Sequelize.DataTypes.TEXT
     }
 });
 
@@ -58,6 +61,15 @@ Picture.sync({alter: true}).then( () => {
 });
 */
 
+// insert test user
+User.sync({alter: true}).then( () => {
+    return User.create({
+        username: 'testuser01',
+        password: 'asdf'
+    });
+}).catch( (err) => {
+    console.log(err);
+});
 // helper query functions for the routers
 const getAllPictures = async (req, res) => {
     const pictureArray = await Picture.sync({alter: true}).then( () => {
@@ -78,6 +90,21 @@ const getPictureById = async (req, res) => {
     res.status(200).send(myPicture.toJSON());
 };
 
+const postCaption = async (req, res) => {
+    const thisId = req.params.id;
+    const thisUser = req.body.userId;
+    const captionText = req.body.caption;
+    const newCaption = await Caption.sync({alter: true}).then( () => {
+        return Caption.create( {
+            picture_id: thisId,
+            user_id: thisUser,
+            body: captionText
+        } );
+    }).catch( (err) => {
+        res.status(400).send('error, cannot post caption', err);
+    });
+    res.status(201).send('caption saved');
+};
 
 
-module.exports = { getAllPictures, getPictureById, };
+module.exports = { getAllPictures, getPictureById, postCaption, };

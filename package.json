@@ -1,7 +1,7 @@
 {
   "name": "photo-contest",
   "version": "1.0.0",
-  "description": "practice project",
+  "description": "codecademy practice project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,10 +13,6 @@
     "express": "^4.19.2",
     "pg": "^8.12.0",
     "pg-hstore": "^2.3.4",
-    "postgres": "^3.4.4",
     "sequelize": "^6.37.3"
-  },
-  "devDependencies": {
-    "sequelize-cli": "^6.6.2"
   }
 }

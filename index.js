@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
 
+
 app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
@@ -14,10 +15,14 @@ app.get('/', (req, res, next) => {
     res.json({info: 'legalabb az express elindult'});
 });
 
+/* endpointok routingjai
+*get all, get single pic by id, post caption to single pic by id
+*/
+// app.get('/pictures', sequelize.getPictures);
 
+//app.get('/pictures/:id', db.callback);
 
-
-
+//app.post('/pictures/:id', db.callback);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
